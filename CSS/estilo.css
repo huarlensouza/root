@@ -1,3 +1,7 @@
+* {
+    margin: auto;
+    display: relative;
+}
 table, th, td {
     border: 1px solid black;
     font-size: 13px;
@@ -36,5 +40,5 @@ tr:hover {
 }
 
 .preco {
-    transition: ease-in-out 0.1s;
+    transition: ease-in-out 0.8s;
 }

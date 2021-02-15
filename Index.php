@@ -33,6 +33,15 @@
     WHERE   RowNum > $min
     AND RowNum <= $max order by DESCRICAO";
   }
+  if (isset($get_barra) && ($get_barra)) {
+    $sqlcount = "SELECT COUNT(*) as total FROM PRODUTOS WHERE BARRA = '$get_barra' and  DESCRICAO LIKE '%$get_descricao%'";
+    $sql = "SELECT * FROM
+    (SELECT ROW_NUMBER() OVER ( ORDER BY CODPROD ) AS RowNum, *
+    FROM PRODUTOS WHERE BARRA = '$get_barra' and  DESCRICAO LIKE '%$get_descricao%')
+    AS RowConstrainedResult
+    WHERE   RowNum > $min
+    AND RowNum <= $max order by DESCRICAO";
+  }
     $result = $Conexao->query($sqlcount);
     $data = $result -> fetch(PDO::FETCH_ASSOC);
     $query = $Conexao->query($sql);
