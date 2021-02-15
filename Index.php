@@ -42,10 +42,14 @@
     WHERE   RowNum > $min
     AND RowNum <= $max order by DESCRICAO";
   }
+
     $result = $Conexao->query($sqlcount);
     $data = $result -> fetch(PDO::FETCH_ASSOC);
     $query = $Conexao->query($sql);
     $consulta = $query->fetchAll();
+
+
+
 ?>
 
  <!-- Pesquisar pela descrição -->
@@ -56,18 +60,18 @@
     <title>Pesquisar Produtos</title>
   </head>
  <body>
-  <form name="Pesquisa" action="index.php" method="GET">
+  <form name="Pesquisa" action="index.php" method="GET" class="consulta">
     <label>Descrição do Produto:</label>
-     <input type="text" name="DESCRICAO" ></br></br>
+     <input type="text" name="DESCRICAO" value="<?php echo $get_descricao;?>"></br></br>
     <label>Código de Barra:</label>
-     <input type="text" name="BARRA">
+     <input type="text" name="BARRA" value="<?php echo $get_barra;?>">
     <input type="submit">
   </form>
  <!-- Tabela de Resultados -->
  <table border="1" class="responsive-table">
   <tr>
     <th width="1em">CÓDIGO DE BARRA</th>
-    <th>DESCRIÇÃO</th>
+    <th>DESCRIÇÃO DO PRODUTO</th>
     <th width="1em">PREÇO VENDA</th>
     <th>ESTOQUE</th>
   </tr>
@@ -82,15 +86,20 @@
     $estoque = $produto['ESTOQUE'];
     $preco = number_format($preco_unit, 2, ',', '.');
     $est = number_format($estoque, 3, ',', '.');
-
+//Coloquei Width nos Formulários para Ficarem fixo os resultados independente dos Caracteres
     echo "<tr>";
-    echo "<td>".$barra."</td>";
-    echo "<td>".$descricao."</td>";
-    echo "<td class='preco'>"."R$ ".$preco."</td>";
-    echo "<td style='text-align:center;'>".$est."</td>";
+    echo "<td width='1em'>".$barra."</td>";
+    echo "<td width='420px;'>".$descricao."</td>";
+    echo "<td class='preco' width='75px;'>"."R$ ".$preco."</td>";
+    echo "<td style='text-align:center;' width='70px;'>".$est."</td>";
     echo "</tr>";
   }
+//Verifica se há números de Rows, caso seja '0' informe nenhum produto localizado
+  if ($data['total'] == 0) {
+    echo "<td colspan='4' class='nenhum'>"."Nenhum produto localizado"."</td>";}
     echo "</table>";
+    
+
 
  // Paginação com Botão de Next para visualizar de 40 em 40.
     $page_name="index.php";
@@ -100,9 +109,9 @@
   }
 
 //Botão de Voltar página
-    echo "</td><td align='left' width='30%'>";
+    echo "</td><td align='left' width='30%'><p class='showing'>";
   if($back >= 0) {
-    print "<a href='$page_name?atual=$back&DESCRICAO=$get_descricao'>
+    print "<a class='back' href='$page_name?atual=$back&DESCRICAO=$get_descricao'>
     <font face='Verdana' size='2'>Voltar página</font></a>";
 }
     echo "Mostrando ".($min+1)." a ".$max." de ".$data['total'];
@@ -111,9 +120,9 @@
 
 //Botão de Próxima página
   if($data['total'] > $next) {
-    print "<a href='$page_name?atual=$next&DESCRICAO=$get_descricao'>
+    print "<a class='next' href='$page_name?atual=$next&DESCRICAO=$get_descricao'>
     <font face='Verdana'
-    size='2'>Próxima Página</font></a>";}
+    size='2'>Próxima Página</font></a></p>";}
 ?>
 </body>
 </html>

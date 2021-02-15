@@ -1,14 +1,18 @@
-* {
-    margin: auto;
-    display: relative;
-}
 table, th, td {
     border: 1px solid black;
     font-size: 13px;
+    margin: auto;
+}
+
+.consulta {
+    margin: auto;
+    text-align: center;
+    margin-bottom: 2%;
 }
 
 th, td {
     padding: 5px;
+    margin: auto;
 }
 
 table {
@@ -41,4 +45,23 @@ tr:hover {
 
 .preco {
     transition: ease-in-out 0.8s;
+}
+
+.showing {
+    text-align: center;
+}
+
+.next {
+    float: right;
+    margin-right: 25%;
+}
+
+.back {
+    float: left;
+    margin-left: 25%;
+}
+
+.nenhum {
+    text-align: center;
+    font-size: 20px;
 }
