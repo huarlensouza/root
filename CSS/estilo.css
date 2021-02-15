@@ -65,3 +65,16 @@ tr:hover {
     text-align: center;
     font-size: 20px;
 }
+
+#pesquisa {
+    margin:auto;
+}
+
+#pesquisa input.descricao
+{
+    width:100px;
+}
+#pesquisa input.barra
+{
+    width:120px;
+}

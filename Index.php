@@ -50,6 +50,7 @@
 
 
 
+
 ?>
 
  <!-- Pesquisar pela descrição -->
@@ -60,11 +61,12 @@
     <title>Pesquisar Produtos</title>
   </head>
  <body>
-  <form name="Pesquisa" action="index.php" method="GET" class="consulta">
-    <label>Descrição do Produto:</label>
-     <input type="text" name="DESCRICAO" value="<?php echo $get_descricao;?>"></br></br>
-    <label>Código de Barra:</label>
-     <input type="text" name="BARRA" value="<?php echo $get_barra;?>">
+  <form id="pesquisa" name="Pesquisa" action="index.php" method="GET" class="consulta">
+  <label>Código de Barra:</label>
+     <input type="text" name="BARRA" value="<?php echo $get_barra;?>" class="barra">
+    <label>Descrição:</label>
+     <input type="text" name="DESCRICAO" placeholder="Descrição do Produto" value="<?php echo $get_descricao;?>" class="descricao">
+
     <input type="submit">
   </form>
  <!-- Tabela de Resultados -->
@@ -126,3 +128,11 @@
 ?>
 </body>
 </html>
+
+<!-- SELECT * FROM
+    (SELECT (a.BARRA) as BARRA2, ROW_NUMBER() OVER ( ORDER BY p.CODPROD ) AS RowNum, p.BARRA, p.DESCRICAO
+    FROM PRODUTOS as p full join ALTERNATIVO as a on p.CODPROD = a.CODPROD
+	WHERE DESCRICAO LIKE '%coca%')
+    AS RowConstrainedResult
+    WHERE   RowNum > 0
+    AND RowNum <= 150 order by DESCRICAO -->
